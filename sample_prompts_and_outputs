@@ -134,3 +134,34 @@ This shows TPM understanding of prompt refinement → expected at Leonardo.
 ---
 
 # 6. Output Metadata Template (Used in QA + Engineering Sync)
+model: leonardo-xl-v2
+sampler: dpmpp_2m
+steps: 30
+seed: 128374
+resolution: 1024x1024
+negative_prompt: “low quality, artifacts, watermark, distorted anatomy”
+latency: 8.4s
+
+---
+
+# 7. Output Rejection Examples
+
+| Issue Type | Description | Reason for Rejection |
+|------------|-------------|----------------------|
+| Anatomy defect | Warped hands/fingers | Fails visual QA |
+| Artifact | Random shapes behind subject | Not brand-safe |
+| Wrong style | Too realistic/too cartoonish | Style mismatch |
+| Unstable texture | Over-smoothed surface | Fails quality check |
+| IP-like element | Resembles a known character | Compliance issue |
+
+---
+
+# Summary  
+This document demonstrates:  
+- Practical prompt evaluation  
+- Ability to identify issues in AI-generated imagery  
+- Understanding of iteration cycles  
+- Familiarity with metadata, consistency, and QA workflows  
+- Cross-functional readiness to work with design & engineering on AI features  
+
+It reflects the real process used when validating enterprise-grade image outputs.
