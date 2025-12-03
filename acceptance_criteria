@@ -1,0 +1,123 @@
+# Acceptance Criteria — AI Image Workflow Feature Delivery  
+This document outlines measurable, testable acceptance criteria for AI image-generation workflows used in Enterprise environments. These criteria help Engineering, Design, QA, and Product agree on what constitutes a “successful” output and a production-ready release.
+
+---
+
+## ✅ 1. Functional Acceptance Criteria
+
+### **1.1 Prompt Processing**
+- The system must accept user prompts between 5–400 characters.
+- Inputs must be validated and normalized (remove special characters, unsupported tokens).
+- Brand-blocked or restricted keywords must trigger a Soft Fail message.
+- Negative prompts must be auto-applied based on customer preset.
+
+### **1.2 Model Selection & Configuration**
+- The correct model (general vs fine-tuned) must be selected based on customer profile.
+- Guidance scale, sampling steps, and resolution must follow preset defaults unless manually overridden.
+- A consistent seed must be applied if “reproducible mode” is enabled.
+
+### **1.3 Image Generation**
+- At least **3 images per request** must be generated unless specified otherwise.
+- Images must be generated within **8–12 seconds** under normal load.
+- Outputs must meet the minimum resolution requirement (e.g., 1024×1024 or customer-defined).
+
+### **1.4 Post-Processing**
+- All outputs must pass automated enhancement (upscale, detail fix, artifact removal).
+- There must be no cropping, stretching, or unintended distortions.
+- Color correction must follow customer brand guidelines (if any).
+
+---
+
+## 🎨 2. Visual Quality Acceptance Criteria
+
+### **2.1 Style Consistency**
+- Output must match reference style or model style-preset with ≥90% consistency.
+- Repeated generations using same seed must produce visually similar results.
+
+### **2.2 Composition & Subject Accuracy**
+- The primary subject must appear clearly and be fully visible unless instructed otherwise.
+- No major artifacts, warped limbs, random objects, or incorrect text.
+
+### **2.3 Brand & Customer Rules**
+- Forbidden colors, patterns, or elements must not appear.
+- Output must adhere to customer-specific brand-safe zones (e.g., logo placement area remains unobstructed).
+
+---
+
+## 🔐 3. Safety & Compliance Acceptance Criteria
+
+### **3.1 Automated Safety Checks**
+- Images containing nudity, violence, political content, or copyright risks must be automatically rejected.
+- Rejected images must not be saved to the customer history.
+
+### **3.2 Data Protection & Auditability**
+- Every generation request must include traceable metadata:  
+  `prompt, negative_prompt, model_version, seed, sampler, user_id, timestamp`.
+
+### **3.3 Customer-Specific Compliance Rules**
+- HIPAA-related clients → no patient-identifiable visual elements.  
+- Pharma clients → no off-label visual implications.  
+- Finance/legal clients → no misleading representations.
+
+---
+
+## 🧪 4. QA Acceptance Criteria
+
+### **4.1 Automated QA**
+- NSFW detection score < threshold.
+- Artifact detection score < threshold.
+- Composition score meets preset constraints (centered subject, rule-of-thirds pass).
+
+### **4.2 Manual QA**
+- Reviewer confirms style-preset match.
+- Reviewer confirms “fit for brand use” based on visual guidelines.
+- Reviewer signs off on 3/3 or 4/4 images (depending on batch size).
+
+---
+
+## 🚀 5. Performance & Reliability Acceptance Criteria
+
+### **5.1 Latency**
+- 95th percentile request must complete under **15 seconds**.
+
+### **5.2 Stability**
+- Pipeline must maintain >99% uptime during POC period.
+
+### **5.3 Reproducibility**
+- Same prompt, same seed, same model → variation < 5%.
+
+---
+
+## 📦 6. Delivery & Handoff Acceptance Criteria
+
+- All generated outputs must be available in preview UI.  
+- Regenerate/Refine buttons must work with <2s response time.  
+- Metadata panel must populate correctly.  
+- Customer-facing documentation must be updated.  
+- Handover meeting must be completed with Engineering, Design, QA, and CS.
+
+---
+
+## 🎉 7. POC → Pilot → Production Readiness
+
+A feature is considered **production-ready** if:
+
+- All functional + visual + safety criteria above are met  
+- All critical issues (P0/P1) resolved  
+- No P2 issues affecting customer workflows  
+- Logs, dashboards, and alerts configured  
+- On-call rotation prepared  
+- Customer signs acceptance during Pilot review  
+
+---
+
+## ✔️ Summary
+
+These acceptance criteria ensure the generated images:
+- Are **high quality**
+- Are **safe**
+- Respect **brand & regulatory rules**
+- Have **predictable behavior**
+- Are **testable**, **verifiable**, and **repeatable**
+
+This is exactly how Enterprise TPMs at Leonardo ensure cross-team alignment.
