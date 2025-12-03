@@ -1,0 +1,136 @@
+# Sample Prompts and Expected Outputs
+
+This document contains example prompts, expected behaviors, validation notes, and typical issues observed during AI image-generation workflows. It is designed to simulate how a Technical Project Manager would support prompt evaluation, QA, and iteration cycles for enterprise clients.
+
+---
+
+# 1. Example Prompt Set — Brand Style Consistency
+
+## Prompt A
+**Prompt:**  
+“Professional product shot of a matte black water bottle on a clean white background, soft shadows, studio lighting, 50mm lens, minimalistic style.”
+
+**Expected Output:**  
+- Bottle centered, upright  
+- No reflections or fingerprints  
+- Matte texture preserved  
+- Soft shadow directly beneath object  
+- Background pure white (#FFFFFF)  
+- No props or extra elements  
+
+**Validation Notes:**  
+- Check for plastic-looking texture → reject if glossy  
+- Ensure no label hallucinations  
+- Background must be uniform (no gradient unless requested)  
+- Brand style must match reference set  
+
+**Common Issues:**  
+- Over-sharpening around edges  
+- Artifact on cap area  
+- Slight gray banding on background  
+
+---
+
+# 2. Example Prompt Set — Human Subjects
+
+## Prompt B  
+**Prompt:**  
+“Portrait of a young adult wearing casual business attire, natural light, smiling confidently, diverse representation, clean background.”
+
+**Expected Output:**  
+- Symmetrical facial features  
+- No distorted fingers or hands  
+- Clothing consistent and not melted  
+- No extra limbs, duplicate earrings, or blurred glasses  
+- Friendly expression aligned with brand tone  
+
+**Validation Notes:**  
+- Must pass enterprise safety filters  
+- Expression must look natural, not uncanny  
+- Clothing must remain professional and non-offensive  
+
+**Common Issues:**  
+- Extra teeth or warped jawline  
+- Asymmetrical eyes  
+- Distorted hand when included in frame  
+- Subtle watermark-like patterns  
+
+---
+
+# 3. Example Prompt Set — Scene / Environment
+
+## Prompt C  
+**Prompt:**  
+“Modern kitchen interior, bright natural lighting, neutral color palette, clean surfaces, high-end minimalist design.”
+
+**Expected Output:**  
+- No unrealistic or floating objects  
+- Straight and aligned lines in cabinets/counters  
+- No brand logos unless provided  
+- Lighting consistent with room size  
+- Materials realistic (marble, wood, metal)  
+
+**Validation Notes:**  
+- Reject if perspective warped  
+- Reject if objects appear duplicated  
+- Color palette must match sample (whites, grays, light wood tones)  
+
+**Common Issues:**  
+- Crooked cabinet lines  
+- Distorted tiles  
+- Unrealistic reflections  
+
+---
+
+# 4. Example Prompt Set — Stylized / Artistic
+
+## Prompt D  
+**Prompt:**  
+“Digital illustration of a whimsical forest creature, Studio Ghibli style, warm color palette, soft lighting, highly expressive.”
+
+**Expected Output:**  
+- Soft brush-like textures  
+- Consistent color palette (warm greens/yellows)  
+- Eyes expressive and non-creepy  
+- Smooth edges, no pixelation  
+
+**Validation Notes:**  
+- Check style consistency across multiple outputs  
+- Ensure creature not too similar to existing copyrighted characters  
+- Avoid overly sharp or realistic rendering  
+
+**Common Issues:**  
+- Overly realistic skin textures → mismatched style  
+- Inconsistent proportions  
+- Too close to specific Ghibli characters (IP risk)  
+
+---
+
+# 5. Prompt Iteration Workflow
+
+A typical iteration cycle includes:
+
+## 5.1 Initial Prompt
+“Outdoor running shoe on rocky terrain, dynamic angle, dramatic lighting.”
+
+Results: Good silhouette, poor texture detail, background too busy.
+
+## 5.2 Refined Prompt
+“Outdoor running shoe, close-up angle, sharp texture detail, controlled background bokeh, dramatic but soft directional lighting.”
+
+Results: Better texture clarity, cleaner background.
+
+## 5.3 Final Prompt
+“Close-up product shot of an outdoor running shoe placed on subtle rocky surface, crisp texture detail, soft directional lighting, shallow depth of field, minimalist background.”
+
+**Final Output Criteria:**
+- Subject fully in frame  
+- Texture sharp, materials realistic  
+- No debris or random objects  
+- Background not distracting  
+
+This shows TPM understanding of prompt refinement → expected at Leonardo.
+
+---
+
+# 6. Output Metadata Template (Used in QA + Engineering Sync)
