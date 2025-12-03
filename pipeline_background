@@ -1,0 +1,172 @@
+# Pipeline Breakdown — AI Image Workflow
+
+This document breaks down the image-generation workflow into clear, modular stages.  
+Each stage includes its purpose, key decisions, owners, risks, and handoff points — reflecting how a TPM collaborates across engineering, design, and product in an enterprise AI feature delivery.
+
+---
+
+## 🔁 1. Input Acquisition & Pre-Processing
+**Purpose**  
+Receive user input (text prompt, reference image, constraints) and normalise it for pipeline consistency.
+
+**Key Activities**
+- Validate required fields (prompt, resolution, style options)
+- Pre-filter unsafe or disallowed content
+- Normalise prompt format (remove noise, auto-expand placeholders)
+- Associate request with customer profile (brand rules, model presets)
+
+**Owners**
+- Product (requirements)
+- Engineering (validation logic)
+- Content Safety (pre-filters)
+
+**Risks**
+- Vague/ambiguous prompts → low-quality outputs  
+- Prompt includes disallowed content → compliance breach  
+
+**Deliverables**
+- Clean input package ready for sampling
+
+---
+
+## 🧠 2. Prompt Conditioning & Embedding
+**Purpose**  
+Transform text into model-readable embeddings and apply brand/style constraints.
+
+**Key Activities**
+- Convert text prompt → CLIP embeddings  
+- Apply custom tokens (brand names, reference styles)  
+- Add negative prompts  
+- Select model (general SD vs custom finetuned model)  
+- Lock seed for reproducibility (optional)
+
+**Owners**
+- Engineering (model integration)
+- Design / Creative (prompt templates)
+- TPM (ensure alignment and test cases)
+
+**Risks**
+- Mismatched style tokens → inconsistent output  
+- Wrong negative prompts → artifact-heavy images  
+
+**Deliverables**
+- Full “prompt package” including embeddings, model choice, guidance scale, seed
+
+---
+
+## 🎨 3. Sampling & Image Generation
+**Purpose**  
+Produce an initial image based on embeddings, sampling strategy, and model.
+
+**Key Activities**
+- Select sampling method (Euler A, DPM++ 2M, etc.)
+- Run inference on Automatic1111 / ComfyUI / internal engine
+- Generate multiple candidate images (batch)
+- Apply initial safety filter
+
+**Owners**
+- Engineering (pipeline execution)
+- Infra (compute, GPU allocation)
+
+**Risks**
+- Latency spikes from heavy models  
+- Output variance too high across seeds  
+- Compute cost overruns  
+
+**Deliverables**
+- Raw image outputs (batch set)
+
+---
+
+## 🔧 4. Post-Processing & Enhancement
+**Purpose**  
+Improve visual quality and prepare output for QA & client review.
+
+**Key Activities**
+- Upscaling (x2–x4)
+- Face enhancement / detail fix  
+- Artifact removal  
+- Color / lighting correction  
+- Apply client-specific brand adjustments (if required)
+
+**Owners**
+- Engineering
+- Design (visual review guidelines)
+
+**Risks**
+- Over-enhancement → unnatural look  
+- Increased processing cost on large batches  
+
+**Deliverables**
+- Enhanced output images ready for validation
+
+---
+
+## 🧪 5. Automated & Manual QA Validation
+**Purpose**  
+Ensure images meet brand, quality, and safety standards.
+
+**Automated QA Examples**
+- NSFW / unsafe detection
+- Composition check (subject positioning)
+- Color / contrast threshold check
+- Text detection (avoid unintended text artifacts)
+
+**Manual QA Examples**
+- Brand guideline match  
+- Style consistency across batch  
+- Visual artifact review  
+
+**Owners**
+- QA  
+- Design reviewer  
+- TPM validates acceptance criteria
+
+**Risks**
+- False negatives on automated filters  
+- Reviewer subjectivity  
+
+**Deliverables**
+- QA report + approved sample set
+
+---
+
+## 📤 6. Delivery, Preview UI, and Feedback Loop
+**Purpose**  
+Provide outputs to end-users or enterprise clients and capture feedback.
+
+**Key Activities**
+- Populate preview UI  
+- Allow users to select, regenerate, or refine  
+- Capture feedback (rating, comments, request metadata)
+- Log prompt/model data for reproducibility
+
+**Owners**
+- Frontend engineering  
+- Product design  
+- TPM ensures tracking events & success metrics
+
+**Risks**
+- Unclear UI results in poor client satisfaction  
+- Missing tracking → no data for iteration  
+
+**Deliverables**
+- User-visible output + feedback dataset
+
+---
+
+# 🧭 Handoff Map (at a glance)
+
+| Stage | Primary Owner | Handoff To | Deliverable |
+|------|---------------|------------|-------------|
+| Input validation | Product / Eng | AI pipeline | Clean prompt input |
+| Prompt conditioning | Eng / Design | Model engine | Embeddings + model config |
+| Image generation | Eng | Post-process | Raw output batch |
+| Post-processing | Eng / Design | QA | Enhanced images |
+| QA | QA / Design | Client / CS | Approved samples |
+| Delivery | FE / CS | Product / TPM | Feedback & next iteration |
+
+---
+
+# 📝 Notes
+This breakdown reflects how a TPM communicates with engineering, design, QA, and product when coordinating AI-powered features. The emphasis is on sequencing, ownership, dependencies, and risks — not engineering-level implementation.
