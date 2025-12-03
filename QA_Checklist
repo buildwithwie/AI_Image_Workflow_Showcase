@@ -1,0 +1,150 @@
+# QA Checklist — AI Image Workflow
+
+This QA checklist validates functional, visual, safety, and workflow integrity across the AI image-generation pipeline. It supports both POC and Production readiness.
+
+---
+
+## 1. Functional Validation
+
+### 1.1 Prompt Input
+- [ ] Prompt input field accepts 5–400 characters.
+- [ ] Special characters sanitized correctly.
+- [ ] Negative prompts auto-injected based on customer profile.
+- [ ] Prompt history saved and displayed correctly.
+
+### 1.2 Model Routing
+- [ ] Correct model selected (general / fine-tuned).
+- [ ] Version number displayed and logged.
+- [ ] Reproducible mode applies consistent seed.
+- [ ] Overrides (resolution, steps, sampler) behave as expected.
+
+### 1.3 Image Generation
+- [ ] Correct number of images produced (default 3 or customer-specified).
+- [ ] No timeout or pipeline freeze.
+- [ ] Generation completed under expected latency (8–12 seconds).
+- [ ] All images return valid metadata.
+
+### 1.4 Post-Processing
+- [ ] Upscaling applied correctly.
+- [ ] No hallucinated artifacts introduced by post-process.
+- [ ] Color correction matches preset rules.
+- [ ] Enhancement does not distort subject.
+
+---
+
+## 2. Visual Quality Validation
+
+### 2.1 Composition Checks
+- [ ] Subject is fully visible (unless intentionally cropped).
+- [ ] No warped limbs, duplicated fingers, or melted objects.
+- [ ] Background is consistent and not chaotic.
+- [ ] Text, if present, is readable and not distorted.
+
+### 2.2 Style Consistency
+- [ ] Output matches reference style with high similarity.
+- [ ] Seeded generations reproduce consistently (variation < 5%).
+- [ ] Color palette matches customer brand.
+
+### 2.3 Artifact Detection
+- [ ] No severe noise or pixelation.
+- [ ] No random objects (e.g., floating hands, shadows).
+- [ ] No unintended watermark-like patterns.
+
+---
+
+## 3. Safety & Compliance QA
+
+### 3.1 NSFW & Sensitive Content
+- [ ] No nudity or sexual content detected.
+- [ ] No violence or gore.
+- [ ] No political content or symbols.
+- [ ] No copyrighted or trademarked characters (unless allowed).
+
+### 3.2 Customer-Specific Compliance
+- Pharma:  
+  - [ ] No off-label indication implied visually.  
+  - [ ] No misrepresentation of dosage or use case.  
+
+- Finance:  
+  - [ ] No misleading financial symbols.  
+
+- Healthcare:  
+  - [ ] No identifiable patient likeness.  
+
+### 3.3 Logging & Audit Trail
+- [ ] All generation metadata correctly logged.  
+- [ ] User ID, timestamp, model version included.  
+- [ ] Reject-reason logged for failed generations.  
+
+---
+
+## 4. UI/UX Validation
+
+### 4.1 Input → Output Flow
+- [ ] Loader indicators work correctly.
+- [ ] Errors display descriptive messages.
+- [ ] “Regenerate” and “Refine” buttons function as expected.
+- [ ] User remains on same page after generation success/failure.
+
+### 4.2 Image Preview Panel
+- [ ] Zoom, download, and compare features functional.
+- [ ] High-resolution version loads properly.
+- [ ] Metadata panel displays accurate details (seed, model, sampler).
+
+### 4.3 Mobile Responsiveness
+- [ ] Prompt input usable on mobile.
+- [ ] Carousel / image grid displays properly.
+- [ ] No clipped UI elements.
+
+---
+
+## 5. Performance & Load QA
+
+### 5.1 Latency Benchmarks
+- [ ] P50 < 10 seconds  
+- [ ] P95 < 15 seconds  
+
+### 5.2 Pipeline Stability
+- [ ] No memory leak during batch testing.
+- [ ] No GPU overload error during heavy sampling.
+- [ ] Multiple sequential prompts do not degrade quality.
+
+---
+
+## 6. Integration QA
+
+### 6.1 API-Level Testing
+- [ ] Generation endpoint returns proper JSON schema.
+- [ ] Error codes follow standard spec.
+- [ ] Rate-limiting behaves as configured.
+
+### 6.2 Webhook Events
+- [ ] "generation.complete" fires successfully.
+- [ ] Payload includes image URLs + metadata.
+- [ ] Retried events logged properly.
+
+---
+
+## 7. Release-Readiness Checklist
+
+- [ ] Accepted by QA engineer  
+- [ ] Reviewed by design  
+- [ ] Approved by product  
+- [ ] Observability dashboards verified  
+- [ ] Rollback plan prepared  
+- [ ] On-call readiness confirmed  
+- [ ] Customer-facing documentation updated  
+- [ ] Green-light from TPM for release  
+
+---
+
+## Summary
+
+This checklist ensures that:
+- Features are safe  
+- Outputs are high-quality  
+- Requirements are met  
+- Stakeholders are aligned  
+- Pipelines are stable for enterprise use  
+
+It reflects real QA expectations for AI image-generation products like Leonardo.Ai.
