@@ -134,12 +134,12 @@ This shows TPM understanding of prompt refinement → expected at Leonardo.
 ---
 
 # 6. Output Metadata Template (Used in QA + Engineering Sync)
-model: leonardo-xl-v2
-sampler: dpmpp_2m
-steps: 30
-seed: 128374
-resolution: 1024x1024
-negative_prompt: “low quality, artifacts, watermark, distorted anatomy”
+model: leonardo-xl-v2  
+sampler: dpmpp_2m  
+steps: 30  
+seed: 128374  
+resolution: 1024x1024  
+negative_prompt: "low quality, artifacts, watermark, distorted anatomy"  
 latency: 8.4s
 
 ---
