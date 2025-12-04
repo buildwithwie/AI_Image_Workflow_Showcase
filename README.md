@@ -30,3 +30,5 @@ It simulates how an Enterprise TPM would:
 ---
 
 This repository is created to support my application for roles involving AI workflows, technical project coordination, and generative AI delivery.
+
+**How to use this repo in interviews:** open `workflow_overview.md` first, then show `pipeline_breakdown.md` and `sample_prompts_and_outputs.md` to demonstrate TPM thinking and prompt/QA literacy.
