@@ -29,4 +29,4 @@ It simulates how an Enterprise TPM would:
 
 ---
 
-## 📁 Files Included  
+This repository is created to support my application for roles involving AI workflows, technical project coordination, and generative AI delivery.
