@@ -170,3 +170,4 @@ Provide outputs to end-users or enterprise clients and capture feedback.
 
 # 📝 Notes
 This breakdown reflects how a TPM communicates with engineering, design, QA, and product when coordinating AI-powered features. The emphasis is on sequencing, ownership, dependencies, and risks — not engineering-level implementation.
+Prompt → Validation → Embedding → Sampling → Post-Processing → QA → Delivery
