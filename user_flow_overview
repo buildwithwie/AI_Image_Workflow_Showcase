@@ -1,0 +1,135 @@
+# User Flow Overview — AI Image Generation
+
+This document outlines the typical end-to-end user journey inside an AI image-generation platform.  
+It demonstrates how a TPM maps user behavior into clear stages that align with engineering, UX, and product planning.
+
+---
+
+# 1. Entry Point — User Opens the Generate Page
+**Purpose:**  
+User lands on the main interface where prompts, model options, and generation settings are visible.
+
+**User actions:**  
+- View model presets  
+- Browse recent images  
+- Check default settings  
+
+**TPM responsibilities:**  
+- Ensure UI clarity  
+- Validate loading state speed  
+- Coordinate UX improvements based on user stats
+
+---
+
+# 2. Prompt Creation & Configuration
+**Purpose:**  
+User composes input text and selects parameters.
+
+**User actions:**  
+- Enter prompt text  
+- Choose a model (Leonardo XL, photo-real, anime, etc.)  
+- Adjust size, output count, sampler, guidance scale  
+- Add negative prompts  
+- (Optional) Upload image for Image-to-Image
+
+**TPM responsibilities:**  
+- Ensure settings map correctly to backend parameters  
+- Identify confusing UI elements  
+- Align UX with engineering capabilities
+
+---
+
+# 3. Image Generation Request Sent
+**Purpose:**  
+Prompt is submitted to backend.
+
+**User actions:**  
+- Click “Generate”  
+- Wait for progress indicators  
+- Possibly cancel generation  
+
+**TPM responsibilities:**  
+- Track latency and compute spikes  
+- Work with infra on performance KPIs  
+- Ensure retry/fallback mechanisms exist
+
+---
+
+# 4. Image Processing & Model Inference
+(Backend/engineering stage — not user-visible)
+
+**Actions happening in pipeline:**  
+- Embedding generation  
+- Sampling  
+- Model inference  
+- Post-processing (upscale, fix faces, de-noise)  
+- Safety filtering  
+- Save output + metadata
+
+**TPM responsibilities:**  
+- Make sure each pipeline stage logs errors clearly  
+- Ensure cross-team visibility (UI, engineering, QA)
+
+---
+
+# 5. Image Results Delivered to UI
+**Purpose:**  
+User sees the generated images.
+
+**User actions:**  
+- View batch results  
+- Click to open full image  
+- Inspect details  
+- Check variations or regenerate  
+
+**TPM responsibilities:**  
+- Ensure UI loads results smoothly  
+- Validate consistency between settings & output  
+- Ensure metadata is visible or stored
+
+---
+
+# 6. Refinement Options
+**Purpose:**  
+Allow user to iterate on outputs.
+
+**User actions:**  
+- Generate variations  
+- Edit prompt and regenerate  
+- Upscale or enhance  
+- Erase/replace tool  
+- Download selected images
+
+**TPM responsibilities:**  
+- Define refinement flow usability  
+- Work with UX on discoverability  
+- Ensure engineering supports multi-step workflows
+
+---
+
+# 7. Feedback Loop & Tracking
+**Purpose:**  
+Capture user satisfaction and behavior analytics.
+
+**User actions:**  
+- Rate image quality  
+- Provide feedback  
+- Save to gallery  
+- Share or export  
+
+**TPM responsibilities:**  
+- Define what events get tracked  
+- Align with product on KPIs (CTR, refine usage, model preference)  
+- Ensure error analytics captured correctly
+
+---
+
+# Summary
+This user flow demonstrates:
+
+- Understanding of how typical AI image platforms operate  
+- Ability to map user intent → UI → backend workflows  
+- Awareness of TPM touchpoints (UX, engineering, product, QA)  
+- Knowledge of pipeline dependencies and performance impacts  
+
+This supports cross-functional planning for AI-driven features.
